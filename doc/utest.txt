@@ -1,0 +1,50 @@
+*utest.txt*	Micro testing framework aimed at single VimL scripts
+
+
+			VIM REFERENCE MANUAL	by Barry Arthur
+
+
+Help on using utest                                                    *utest*
+
+1. Introduction |utest-intro|
+2. Functions    |utest-functions|
+
+==============================================================================
+1. INTRODUCTION                                              *utest-intro*
+
+uTest is a tiny testing framework aimed at single VimL scripts to allow devs to
+embed unit tests with their code. uTest's calling convention requires the
+script developer to pass the script's filename in two forms that prevent the
+tests from being executed when the script is sourced as a library in other
+projects.
+
+==============================================================================
+2. FUNCTIONS                                             *utest-functions*
+
+                                                             *utest-UTest*
+UTest()~
+
+The UTest() function checks an anonymous function against a matrix of data.
+
+>
+  UTest( expand('%:p') , expand('<sfile>:p') , fn , data )
+<
+
+Example:
+>
+    call UTest(expand('%:p'), expand('<sfile>:p')
+          \, Fn('(r) => Roman().to_arabic(a:r)')
+          \, [
+            \  [1, 'I']
+            \, [2, 'II']
+            \, [3, 'III']
+            \])
+<
+
+The |VimaholicsAnonymous| library is used for anonymous functions.
+
+The data matrix is a list of lists with each internal list holiding the
+expected value in cell 0 and the anonymous function's arguments thereafter.
+
+Template From: https://github.com/dahu/Area-41/
+ vim:tw=78:ts=8:ft=help:norl:
