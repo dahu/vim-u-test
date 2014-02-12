@@ -31,8 +31,7 @@ function! UTest(file, sfile, fn, tests)
   if a:file == a:sfile
     let fail = 0
     for t in a:tests
-      let args = string(t[1:-1])
-      exe 'let result = Fx(a:fn, ' . strpart(args, 1, len(args)-2) . ')'
+      let result = call('Fx', [a:fn] + t[1:-1])
       if t[0] != result
         echo 'Fail: ' . t[0]
         let fail = 1
